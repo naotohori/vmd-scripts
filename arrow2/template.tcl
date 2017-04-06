@@ -2,6 +2,7 @@ proc vmd_draw_arrow {mol start delta} {
 	set end [vecadd $start [vecscale 200 $delta]]
 	#set end [vecadd $start [vecscale 10 $delta]]
 	set middle [vecadd $start [vecscale 0.7 [vecsub $end $start]]]
+    graphics $mol color red
 	graphics $mol cylinder $start $middle radius 0.30
 	graphics $mol cone $middle $end radius 0.50
 }
