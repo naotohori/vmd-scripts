@@ -2,7 +2,10 @@
 
 import subprocess
 
-for l in open('f002_movie_vmd.log'):
+projectname = 'sample'
+PATH_TACHYON = '/usr/local/lib/vmd/tachyon_LINUXAMD64'
+
+for l in open('%s_movie_vmd.log' % projectname):
     lsp = l.split()
     movieframe = int(lsp[0])
     timeframe = int(lsp[1])
@@ -11,11 +14,11 @@ for l in open('f002_movie_vmd.log'):
 
     # Convert from dat to tga
     exe = [
-    '/usr/local/lib/vmd/tachyon_LINUXAMD64',
+    PATH_TACHYON,
     '-V',
     '-trans_vmd',
-    'f002.%06d.dat' % movieframe,
-    '-o', 'f002.%06d.tga' % movieframe
+    '%s.%06d.dat' % (projectname, movieframe),
+    '-o', '%s.%06d.tga' % (projectname, movieframe)
     ]
     subprocess.call(exe)
 
@@ -25,21 +28,21 @@ for l in open('f002_movie_vmd.log'):
     '-fill', 'black',
     '-pointsize', '36',
     '-draw', 'text 350,450' + " '%4.2f ms'" % time,
-    'f002.%06d.tga' % movieframe,
-    'f002.%06d.jpg' % movieframe
+    '%s.%06d.tga' % (projectname, movieframe),
+    '%s.%06d.jpg' % (projectname, movieframe)
     ]
     subprocess.call(exe)
 
 exe = [
 'ffmpeg',
 '-framerate', '60',
-'-i', 'f002.%06d.jpg',
+'-i', projectname + '.%06d.jpg',
 '-c:v', 'libx264',
 '-preset', 'slow',
 '-crf', '0',
 '-c:a', 'copy',
 '-pix_fmt', 'yuv420p',
 '-vf', 'pad=ceil(iw/2)*2:ceil(ih/2)*2',
-'f002.mp4'
+'%s.mp4' % projectname
 ]
 subprocess.call(exe)
