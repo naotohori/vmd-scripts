@@ -251,126 +251,126 @@ proc justify {justify_frame} {
 
 
 
-proc move_vp {start end {morph_frames 50} args} {
-  global viewpoints 
-  set pi 3.1415926535
+# proc move_vp {start end {morph_frames 50} args} {
+#   global viewpoints 
+#   set pi 3.1415926535
   
-  set smooth 1
-  set tumble 0
-  set ninja  0
-  set render 0
-  if {[lsearch $args "smooth"] > -1}  {set smooth 1}  ;#default
-  if {[lsearch $args "sharp"] > -1} {set smooth 0}
-  if {[lsearch $args "tumble"] > -1}  {set tumble 1}
-  if {[lsearch $args "ninja"] > -1}   {set ninja 1}
-  if {[lsearch $args "-render"] > -1} {set render 1}  ;# only for use by move_vp_render
+#   set smooth 1
+#   set tumble 0
+#   set ninja  0
+#   set render 0
+#   if {[lsearch $args "smooth"] > -1}  {set smooth 1}  ;#default
+#   if {[lsearch $args "sharp"] > -1} {set smooth 0}
+#   if {[lsearch $args "tumble"] > -1}  {set tumble 1}
+#   if {[lsearch $args "ninja"] > -1}   {set ninja 1}
+#   if {[lsearch $args "-render"] > -1} {set render 1}  ;# only for use by move_vp_render
   
-  if {$render} {set framenum $::VCR::first_frame_num}
+#   if {$render} {set framenum $::VCR::first_frame_num}
   
-  if {$start == "here" || $end == "here"} {save_vp "here"}
+#   if {$start == "here" || $end == "here"} {save_vp "here"}
             
-  foreach mol [molinfo list] {
-    if [info exists viewpoints($start,$mol,0)] {
-      set old_rotate($mol)  $viewpoints($start,$mol,0)
-      set old_center($mol) $viewpoints($start,$mol,1)
-      set old_scale($mol) $viewpoints($start,$mol,2)
-      set old_global($mol)  $viewpoints($start,$mol,3)
-    } else {
-      puts "Starting view $start was not saved" 
-    }
+#   foreach mol [molinfo list] {
+#     if [info exists viewpoints($start,$mol,0)] {
+#       set old_rotate($mol)  $viewpoints($start,$mol,0)
+#       set old_center($mol) $viewpoints($start,$mol,1)
+#       set old_scale($mol) $viewpoints($start,$mol,2)
+#       set old_global($mol)  $viewpoints($start,$mol,3)
+#     } else {
+#       puts "Starting view $start was not saved" 
+#     }
 
-    if [info exists viewpoints($end,$mol,0)] {
-      set new_rotate($mol)  $viewpoints($end,$mol,0)
-      set new_center($mol) $viewpoints($end,$mol,1)
-      set new_scale($mol) $viewpoints($end,$mol,2)
-      set new_global($mol)  $viewpoints($end,$mol,3)
-    } else {
-      puts "Starting view $start was not saved" 
-    }
+#     if [info exists viewpoints($end,$mol,0)] {
+#       set new_rotate($mol)  $viewpoints($end,$mol,0)
+#       set new_center($mol) $viewpoints($end,$mol,1)
+#       set new_scale($mol) $viewpoints($end,$mol,2)
+#       set new_global($mol)  $viewpoints($end,$mol,3)
+#     } else {
+#       puts "Starting view $start was not saved" 
+#     }
 
   
-    #leave if don't have both viewpoints
-    if {!([info exists viewpoints($start,$mol,0)] && [info exists viewpoints($end,$mol,0)])} {
-      error "move_vp_render failed, don't have both start and end viewpoints"
-    }
+#     #leave if don't have both viewpoints
+#     if {!([info exists viewpoints($start,$mol,0)] && [info exists viewpoints($end,$mol,0)])} {
+#       error "move_vp_render failed, don't have both start and end viewpoints"
+#     }
     
-    set begin_euler [matrix_to_euler $old_rotate($mol)]
-    set end_euler   [matrix_to_euler $new_rotate($mol)]
+#     set begin_euler [matrix_to_euler $old_rotate($mol)]
+#     set end_euler   [matrix_to_euler $new_rotate($mol)]
     
-    set diff [vecsub $end_euler $begin_euler]
+#     set diff [vecsub $end_euler $begin_euler]
     
     
-    # Make sure to take the quickest path!
-    set f [expr 1./$pi]
+#     # Make sure to take the quickest path!
+#     set f [expr 1./$pi]
     
-    for {set i 0} {$i < 3} {incr i} {
-      if  {[lindex $diff $i] > $pi} {
-        set end_euler [lreplace $end_euler $i $i [expr [lindex $end_euler $i] -2.*$pi]]
-      } elseif {[lindex $diff $i] < [expr -$pi]} {
-        set end_euler [lreplace $end_euler $i $i [expr 2.*$pi + [lindex $end_euler $i]]]
-      }
-    }
+#     for {set i 0} {$i < 3} {incr i} {
+#       if  {[lindex $diff $i] > $pi} {
+#         set end_euler [lreplace $end_euler $i $i [expr [lindex $end_euler $i] -2.*$pi]]
+#       } elseif {[lindex $diff $i] < [expr -$pi]} {
+#         set end_euler [lreplace $end_euler $i $i [expr 2.*$pi + [lindex $end_euler $i]]]
+#       }
+#     }
     
-    if {$ninja} {
-      set end_euler [lreplace $end_euler 2 2 [expr 2.*$pi + [lindex $end_euler 2]]]
-    }
+#     if {$ninja} {
+#       set end_euler [lreplace $end_euler 2 2 [expr 2.*$pi + [lindex $end_euler 2]]]
+#     }
 
-    set needed_center($mol) [sub_mat  $new_center($mol) $old_center($mol)]
-    set needed_scale($mol)  [sub_mat  $new_scale($mol)  $old_scale($mol)]
-    set needed_global($mol) [sub_mat  $new_global($mol) $old_global($mol)]
-  }
+#     set needed_center($mol) [sub_mat  $new_center($mol) $old_center($mol)]
+#     set needed_scale($mol)  [sub_mat  $new_scale($mol)  $old_scale($mol)]
+#     set needed_global($mol) [sub_mat  $new_global($mol) $old_global($mol)]
+#   }
   
-  set firstj 0
-  if {$start == "here"} {set firstj 1}   
+#   set firstj 0
+#   if {$start == "here"} {set firstj 1}   
   
-  for {set j $firstj} {$j<= ($morph_frames - 1)} {incr j} {
-    foreach mol [molinfo list] {
-      #set scaling to apply for this individual frame
-      if {$smooth} {
-        #accelerate smoothly to start and stop 
-        set theta [expr 3.1415927 * (0.0 + $j)/($morph_frames - 1)] 
-        set scale_factor [expr 0.5*(1 - cos($theta))]
-      } else {
-        #infinite acceleration to start and stop
-        set scale_factor [expr (0.0 + $j)/($morph_frames - 1)] 
-      }
+#   for {set j $firstj} {$j<= ($morph_frames - 1)} {incr j} {
+#     foreach mol [molinfo list] {
+#       #set scaling to apply for this individual frame
+#       if {$smooth} {
+#         #accelerate smoothly to start and stop 
+#         set theta [expr 3.1415927 * (0.0 + $j)/($morph_frames - 1)] 
+#         set scale_factor [expr 0.5*(1 - cos($theta))]
+#       } else {
+#         #infinite acceleration to start and stop
+#         set scale_factor [expr (0.0 + $j)/($morph_frames - 1)] 
+#       }
     
-      if {$j == $morph_frames} {
-        #avoid roundoff errors by ending in correct position
-        set current_rotate($mol) $new_rotate($mol)
-        set current_center($mol) $new_center($mol)
-        set current_scale($mol)  $new_scale($mol)
-        set current_global($mol) $new_global($mol)
-      } else {
-        set euler {}
-        set random 0.
-        if {$tumble} {set random 0.1} 
-        lappend euler [expr (1.-$scale_factor)*[lindex $begin_euler 0] + $scale_factor*[lindex $end_euler 0] + $random*rand()]
-        lappend euler [expr (1.-$scale_factor)*[lindex $begin_euler 1] + $scale_factor*[lindex $end_euler 1] + $random*rand()]
-        lappend euler [expr (1.-$scale_factor)*[lindex $begin_euler 2] + $scale_factor*[lindex $end_euler 2] + $random*rand()]
-        set current_rotate($mol) [euler_to_matrix $euler]
+#       if {$j == $morph_frames} {
+#         #avoid roundoff errors by ending in correct position
+#         set current_rotate($mol) $new_rotate($mol)
+#         set current_center($mol) $new_center($mol)
+#         set current_scale($mol)  $new_scale($mol)
+#         set current_global($mol) $new_global($mol)
+#       } else {
+#         set euler {}
+#         set random 0.
+#         if {$tumble} {set random 0.1} 
+#         lappend euler [expr (1.-$scale_factor)*[lindex $begin_euler 0] + $scale_factor*[lindex $end_euler 0] + $random*rand()]
+#         lappend euler [expr (1.-$scale_factor)*[lindex $begin_euler 1] + $scale_factor*[lindex $end_euler 1] + $random*rand()]
+#         lappend euler [expr (1.-$scale_factor)*[lindex $begin_euler 2] + $scale_factor*[lindex $end_euler 2] + $random*rand()]
+#         set current_rotate($mol) [euler_to_matrix $euler]
   
-        set current_center($mol) [add_mat $old_center($mol) [scale_mat $needed_center($mol) $scale_factor]]
-        set current_scale($mol)  [add_mat $old_scale($mol)  [scale_mat $needed_scale($mol)  $scale_factor]]
-        set current_global($mol) [add_mat $old_global($mol) [scale_mat $needed_global($mol) $scale_factor]]
-      }
+#         set current_center($mol) [add_mat $old_center($mol) [scale_mat $needed_center($mol) $scale_factor]]
+#         set current_scale($mol)  [add_mat $old_scale($mol)  [scale_mat $needed_scale($mol)  $scale_factor]]
+#         set current_global($mol) [add_mat $old_global($mol) [scale_mat $needed_global($mol) $scale_factor]]
+#       }
       
-      molinfo $mol set rotate_matrix $current_rotate($mol)
-      molinfo $mol set center_matrix $current_center($mol)
-      molinfo $mol set scale_matrix $current_scale($mol)
-      molinfo $mol set global_matrix $current_global($mol)
-    }
-    display update
+#       molinfo $mol set rotate_matrix $current_rotate($mol)
+#       molinfo $mol set center_matrix $current_center($mol)
+#       molinfo $mol set scale_matrix $current_scale($mol)
+#       molinfo $mol set global_matrix $current_global($mol)
+#     }
+#     display update
     
-    if {$render} {
-      set frametext [justify $framenum]
-      render snapshot [file join $::VCR::dirName $::VCR::filePrefixName.$frametext.rgb]  
-      puts "Rendering frame [file join $::VCR::dirName $::VCR::filePrefixName.$frametext.rgb]"
-      incr framenum
-    }
+#     if {$render} {
+#       set frametext [justify $framenum]
+#       render snapshot [file join $::VCR::dirName $::VCR::filePrefixName.$frametext.rgb]  
+#       puts "Rendering frame [file join $::VCR::dirName $::VCR::filePrefixName.$frametext.rgb]"
+#       incr framenum
+#     }
     
-  }
-}
+#   }
+# }
 
 
 
