@@ -33,5 +33,5 @@ Special thanks to Mr. Fuyuki Sakai
 Some of scripts here were adopted and modified from the script library in the official VMD website. https://www.ks.uiuc.edu/Research/vmd/script_library/ , thus all follow the original redistribution policy quoted below.
 
 > VMD script library redistribution policy
-> Scripts in the library are freely available for anyone to use and modify but may not be sold. They are distributed WITHOUT > ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. Should the software > prove defective YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
+> Scripts in the library are freely available for anyone to use and modify but may not be sold. They are distributed WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. Should the software > prove defective YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
 
