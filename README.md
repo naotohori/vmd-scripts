@@ -1,5 +1,11 @@
 # VMD scripting
 
+## Tips
+Show the list of available render commands
+```Tcl
+render list
+```
+
 ## Drawing arrows
 
 ### arrow1/
