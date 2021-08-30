@@ -6,6 +6,11 @@ Show the list of available render commands
 render list
 ```
 
+Delete graphics
+```Tcl
+graphics top delete all
+```
+
 ## Drawing arrows
 
 ### arrow1/
