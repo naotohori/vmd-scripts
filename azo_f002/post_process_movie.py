@@ -12,16 +12,19 @@ for l in open(logfile):
 
     time = timeframe * 0.00015
 
-    ### TIS
-    # Convert from dat to tga
-    exe = [
-    PATH_TACHYON,
-    '-V',
-    '-trans_vmd',
-    'imagesTIS/movie.%06d.dat' % (movieframe,),
-    '-o', 'imagesTIS/movie.%06d.tga' % (movieframe,)
-    ]
-    subprocess.call(exe)
+#    ### TIS
+#    # Convert from dat to tga
+#    exe = [
+#    PATH_TACHYON,
+#    #'-V',
+#    #'-trans_vmd',
+#    '-aasamples', '12',
+#    '-format', 'TARGA',
+#    '-res', '4000 4000'
+#    'imagesTIS/movie.%06d.dat' % (movieframe,),
+#    '-o', 'imagesTIS/movie.%06d.tga' % (movieframe,)
+#    ]
+#    subprocess.call(exe)
 
     exe = [
     'convert',
@@ -38,14 +41,17 @@ for l in open(logfile):
     ]
     subprocess.call(exe)
 
-    ### Mg
-    # Convert from dat to tga
-    exe = [
-    PATH_TACHYON,
-    '-V',
-    '-trans_vmd',
-    'imagesMg/movie.%06d.dat' % (movieframe,),
-    '-o', 'imagesMg/movie.%06d.tga' % (movieframe,)
-    ]
-    subprocess.call(exe)
+#    ### Mg
+#    # Convert from dat to tga
+#    exe = [
+#    PATH_TACHYON,
+#    #'-V',
+#    #'-trans_vmd',
+#    '-aasamples', '12',
+#    '-format', 'TARGA',
+#    '-res', '4000 4000'
+#    'imagesMg/movie.%06d.dat' % (movieframe,),
+#    '-o', 'imagesMg/movie.%06d.tga' % (movieframe,)
+#    ]
+#    subprocess.call(exe)
 

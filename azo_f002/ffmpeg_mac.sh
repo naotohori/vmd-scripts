@@ -13,7 +13,7 @@
 #-c:a "copy"
 #-pix_fmt "yuv420p"
 
-ffmpeg -framerate 60 \
+ffmpeg -r 60 \
        -i "./imagesTIS/movie.%06d.jpg" \
        -c:v "h264_videotoolbox" \
        -b:v "10000k" \
@@ -22,7 +22,7 @@ ffmpeg -framerate 60 \
        -vf "pad=ceil(iw/2)*2:ceil(ih/2)*2" \
        movieTIS.mp4
 
-ffmpeg -framerate 60 \
+ffmpeg -r 60 \
        -i "./imagesMg/movie.%06d.tga" \
        -c:v "h264_videotoolbox" \
        -b:v "10000k" \

@@ -53,8 +53,9 @@ proc pause {frame vp count} {
     if {$render} {
       set frametext [justifysix $::VCR::movieframe]
       #render snapshot [file join $::VCR::dirName $::VCR::filePrefixName.$frametext.rgb]  
-      render Tachyon [file join $::VCR::dirName $::VCR::filePrefixName.$frametext.dat]  
-      puts "Rendering frame [file join $::VCR::dirName $::VCR::filePrefixName.$frametext.rgb]"
+      #render Tachyon [file join $::VCR::dirName $::VCR::filePrefixName.$frametext.dat]  
+      render TachyonLOSPRayInternal [file join $::VCR::dirName $::VCR::filePrefixName.$frametext.tga]
+      puts "Rendering frame [file join $::VCR::dirName $::VCR::filePrefixName.$frametext.tga]"
       puts $::VCR::logfile "$::VCR::movieframe $frame"
       incr ::VCR::movieframe
     }
@@ -180,8 +181,9 @@ proc move_vp {frame start end {morph_frames 50} args} {
     if {$render} {
       set frametext [justifysix $::VCR::movieframe]
       #render snapshot [file join $::VCR::dirName $::VCR::filePrefixName.$frametext.rgb]  
-      render Tachyon [file join $::VCR::dirName $::VCR::filePrefixName.$frametext.dat]  
-      puts "Rendering frame [file join $::VCR::dirName $::VCR::filePrefixName.$frametext.rgb]"
+      #render Tachyon [file join $::VCR::dirName $::VCR::filePrefixName.$frametext.dat]  
+      render TachyonLOSPRayInternal [file join $::VCR::dirName $::VCR::filePrefixName.$frametext.tga]
+      puts "Rendering frame [file join $::VCR::dirName $::VCR::filePrefixName.$frametext.tga]"
       puts $::VCR::logfile "$::VCR::movieframe $frame"
       incr ::VCR::movieframe
     }
@@ -317,8 +319,9 @@ proc move_vp_movie {start_frame start end_frame end args} {
     
     if {$render} {
       set frametext [justifysix $::VCR::movieframe]
-      render Tachyon [file join $::VCR::dirName $::VCR::filePrefixName.$frametext.dat]  
-      puts "Rendering frame [file join $::VCR::dirName $::VCR::filePrefixName.$frametext.dat]"
+      #render Tachyon [file join $::VCR::dirName $::VCR::filePrefixName.$frametext.dat]  
+      render TachyonLOSPRayInternal [file join $::VCR::dirName $::VCR::filePrefixName.$frametext.tga]
+      puts "Rendering frame [file join $::VCR::dirName $::VCR::filePrefixName.$frametext.tga]"
 
       puts $::VCR::logfile "$::VCR::movieframe $fr"
       incr ::VCR::movieframe
