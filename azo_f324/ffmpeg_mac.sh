@@ -20,6 +20,7 @@ ffmpeg -framerate 60 \
        -c:a "copy" \
        -pix_fmt "yuv420p" \
        -vf "pad=ceil(iw/2)*2:ceil(ih/2)*2" \
+       -y \
        movieTIS.mp4
 
 ffmpeg -framerate 60 \
@@ -29,6 +30,7 @@ ffmpeg -framerate 60 \
        -c:a "copy" \
        -pix_fmt "yuv420p" \
        -vf "pad=ceil(iw/2)*2:ceil(ih/2)*2" \
+       -y \
        movieMg.mp4
 
 ffmpeg -i ./movieTIS.mp4 \
@@ -39,4 +41,5 @@ ffmpeg -i ./movieTIS.mp4 \
        -b:v "10000k" \
        -c:a "copy" \
        -pix_fmt "yuv420p" \
+       -y \
        ./side-by-side.mp4
