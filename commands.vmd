@@ -2,3 +2,6 @@ display resize 1000 1000
 
 # Apply smooth = 5 to the 3rd representation of the 0th molecule.
 mol smoothrep 0 3 5
+
+# Delete axis arrows
+axes location Off
