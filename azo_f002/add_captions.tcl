@@ -83,6 +83,6 @@ proc add_captions {iframe} {
     graphics top cylinder $arrow_start $arrow_middle radius 2.0
     graphics top cone $arrow_middle $arrow_end radius 5.0
    
-    graphics top text {-80 -70 0} "TL9-TR5" size $textsize thickness $textthickness
+    graphics top text {-80 -70 0} "TL2-TR8" size $textsize thickness $textthickness
   } 
 }
