@@ -5,3 +5,7 @@ mol smoothrep 0 3 5
 
 # Delete axis arrows
 axes location Off
+
+# Change atom radii
+set sel [atomselect top "all"]
+$sel set radius 1.0
