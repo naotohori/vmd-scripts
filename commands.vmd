@@ -12,3 +12,6 @@ $sel set radius 1.0
 
 # colorでindexを選択したvmdファイルをコピーして、異なる長さの分子に使う場合、ここの値をいじる。
 mol scaleminmax top 0 0.000000 600.000000
+
+# wrap
+pbc wrap -all -center com -compound residue
