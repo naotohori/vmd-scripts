@@ -15,3 +15,6 @@ mol scaleminmax top 0 0.000000 600.000000
 
 # wrap
 pbc wrap -all -center com -compound residue
+
+# Draw the PBC frame
+pbc box -color black
