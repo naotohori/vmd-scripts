@@ -1,0 +1,55 @@
+display resize 1000 1000
+
+# Apply smooth = 5 to the 3rd representation of the 0th molecule.
+mol smoothrep 0 3 5
+
+# Delete axis arrows
+axes location Off
+
+# Change atom radii
+set sel [atomselect top "all"]
+$sel set radius 1.0
+
+# colorでindexを選択したvmdファイルをコピーして、異なる長さの分子に使う場合、ここの値をいじる。
+mol scaleminmax top 0 0.000000 600.000000
+
+# wrap
+pbc wrap -all -center com -compound residue
+
+# Draw the PBC frame
+pbc box -color black
+
+#######################################################
+
+######################
+# Align "nucleic"
+# replace "nucleic" with any selection
+######################
+set mol [molinfo top]
+set fit_sel [atomselect $mol "nucleic"]
+set all_sel [atomselect $mol "all"]
+
+# reference（frame 0）
+set ref_sel [atomselect $mol "nucleic" frame 0]
+
+# align all frames
+set nframes [molinfo $mol get numframes]
+
+for {set i 0} {$i < $nframes} {incr i} {
+
+    $fit_sel frame $i
+    $all_sel frame $i
+
+    # calculate the matrix
+    set M [measure fit $fit_sel $ref_sel]
+
+    # Apply the matrix
+    $all_sel move $M
+}
+
+# clean up
+$fit_sel delete
+$ref_sel delete
+$all_sel delete
+
+#######################################################
