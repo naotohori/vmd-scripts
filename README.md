@@ -13,13 +13,17 @@ graphics top delete all
 
 ## Drawing arrows
 
+For detailed usage, including arrow shape parameters, atom selections, vector
+data format, and generated Tcl scripts, see
+[Drawing Arrows in VMD](docs/ARROW_USAGE.md).
+
 ### arrow1/
 
 A simple TCL script to draw arrows.
 
 ```
 $ vmd 2igd.pdb
-[Tk console]$ source vector1.tcl
+[Tk console]$ source vector.tcl
 ```
 
 ### arrow2/
@@ -45,4 +49,3 @@ Some of scripts here were adopted and modified from the script library in the of
 
 > VMD script library redistribution policy
 > Scripts in the library are freely available for anyone to use and modify but may not be sold. They are distributed WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. Should the software > prove defective YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
-
