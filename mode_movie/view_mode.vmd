@@ -1,0 +1,33 @@
+# View a mode movie made by make_mode_movie.py.
+# Usage: vmd -e view_mode.vmd -args PREFIX     (loads PREFIX.pdb and PREFIX_arrows.tcl)
+set prefix [expr {[llength $argv] > 0 ? [lindex $argv 0] : "mode"}]
+
+mol new ${prefix}.pdb type pdb waitfor all
+mol delrep 0 top
+
+# All-atom structures: cartoon + side chains / bases.
+# Coarse-grained (no backbone atoms recognized): beads.
+set bb [atomselect top "backbone"]
+if {[$bb num] > 0} {
+    mol representation NewCartoon 0.3 10 4.1 0
+    mol color ColorID 8
+    mol selection "all"
+    mol addrep top
+    mol representation Licorice 0.2 12 12
+    mol color Name
+    mol selection "not backbone and not hydrogen"
+    mol addrep top
+} else {
+    mol representation VDW 1.0 12
+    mol color ColorID 8
+    mol selection "all"
+    mol addrep top
+}
+$bb delete
+
+source ${prefix}_arrows.tcl
+
+display projection Orthographic
+animate style Rock
+animate speed 0.6
+animate forward
